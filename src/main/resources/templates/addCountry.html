@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add new book</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div>
+		<h1>Add book</h1>
+	</div>
+	<div>
+		<form th:object="${country}" th:action="@{savecountry}" action="/savecountry"
+			method="post">
+			<!--  -->
+			<label for="name">name</label> <input type="text" id="name"
+				th:field="*{name}" />
+			<!--  -->
+			<br>
+			<label for="continent">continent</label> <input type="text" id="continent"
+				th:field="*{continent}" />
+
+			<!--  -->
+			
+			<!--  -->
+			<br>
+			<label for="FoundedYear">FoundedYear</label> <input type="number" id="FoundedYear"
+				th:field="*{FoundedYear}" />
+			<!--  -->
+			<br>
+			<label for="countryCode">countryCode</label> <input type="text" id="countryCode"
+				th:field="*{countryCode}" />
+			<!--  -->
+			<br>
+			<label for="population">population</label> <input type="number" step=0.01
+				id="population" th:field="*{population}" />
+
+			<!--  -->
+			<input type="submit" value="Add" />
+		</form>
+	</div>
+</body>
+</html>
