@@ -19,7 +19,9 @@ public class Country {
     private int FoundedYear;
     private String countryCode;
     private int population;
-
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     public Country() {
 
     }

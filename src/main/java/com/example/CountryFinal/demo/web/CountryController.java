@@ -1,9 +1,13 @@
 package com.example.CountryFinal.demo.web;
 
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +16,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.CountryFinal.demo.domain.*;
 import com.example.CountryFinal.demo.domain.Country;
 import com.example.CountryFinal.demo.domain.CountryRepository;
+import com.example.CountryFinal.demo.domain.User;
 
 @Controller
 public class CountryController {
@@ -24,14 +33,22 @@ public class CountryController {
     public String startIndex() {
         return "index";
     }
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     CountryRepository cRepository;
 
     @GetMapping("/countryList")
     public String countryList(Model model) {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String username = authentication.getName();
+    	User user = userRepository.findByUsername(username);
+    	List<Country> countries = cRepository.findByUser(user);
+        List<Country> userCountries = cRepository.findByUser(user);
         model.addAttribute("country", new Country());
         model.addAttribute("countries", cRepository.findAll());
+        model.addAttribute("userCountries", userCountries);
         return "countryList";
     }
     @GetMapping("/addcountry")
@@ -63,20 +80,23 @@ public class CountryController {
 		return "editCountry";
 	}  
 	    
-	    @RequestMapping("/")
+	    @RequestMapping("/login")
 	    public String login() {
 	        return "login";
 	    }
-	    @Autowired
-	    private PasswordEncoder passwordEncoder;
-
-	   
-
-	    @GetMapping("/signup")
-	    public String showSignUpForm(Model model) {
-	        model.addAttribute("signupform", new SignUpForm());
-	        return "signup";
+	    @GetMapping("/countries")
+	    public String showCountryList(Model model, @RequestParam(name = "search", required = false) String searchQuery) {
+	      List<Country> countries;
+	      if (searchQuery != null && !searchQuery.isEmpty()) {
+	        countries = cRepository.findByNameContaining(searchQuery);
+	      } else {
+	        countries = (List<Country>) cRepository.findAll();
+	      }
+	      model.addAttribute("countries", countries);
+	      return "countrylist";
 	    }
 
+	   
+	 
 	   
 }

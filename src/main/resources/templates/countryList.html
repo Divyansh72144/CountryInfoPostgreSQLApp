@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>Country List</title>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
     
 </head>
 <body>
@@ -11,11 +12,18 @@
 			<h1>Countries</h1>
 		</div>
 		<div class="col-md-4">
-		<h3>Welcome</h3>
+		<h3>Welcome <span th:text="${#authentication.getName()}"></span>!</h3>
 	</div>
 		<div class="col-md-4" style="padding:20px 0">
 			
 		</div>
+		<form th:action="@{/countries}" method="get">
+  <div class="form-group">
+    <label for="search">Search:</label>
+    <input type="text" class="form-control" id="search" name="search" placeholder="Enter search query">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 		
 		<table class="table table-striped">
 			<thead>
@@ -36,11 +44,40 @@
 					<td th:text="${country.getpopulation}"></td> 
 				<td><a th:href="@{/editcountry/{id}(id=${country.id})}"
 					class="btn btn-success">Edit</a></td>
-				<td><a th:href="@{/deletecountry/{id}(id=${country.id})}"
-					class="btn btn-danger">Delete</a></td>
+				
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deletecountry/{id}(id=${country.id})}" class="btn btn-xs btn-danger">Delete</a></td>    		
+					
 				</tr>
 			</tbody>
 		</table>
+		        <h3>User's countries</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Continent</th>
+            <th>Founded Year</th>
+            <th>Country Code</th>
+            <th>Population</th>
+        </tr>
+    </thead>
+    <tbody>
+               <tr th:each="country : ${userCountries}">
+            <td th:text="${userCountry.name}"></td>
+            <td th:text="${userCountry.continent}"></td>
+            <td th:text="${userCountry.foundedYear}"></td>
+            <td th:text="${userCountry.countryCode}"></td>
+            <td th:text="${userCountry.population}"></td>
+            <td th:text="${userCountry.user != null ? userCountry.user.username : ''}"></td>
+            <td>
+                <a th:href="@{/editcountry/{id}(id=${userCountry.id})}" class="btn btn-success">Edit</a>
+            </td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/deletecountry/{id}(id=${userCountry.id})}" class="btn btn-xs btn-danger">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 		<br>
 	<a href="/addcountry" class="btn btn-success">Add Country</a>
 	</div>
