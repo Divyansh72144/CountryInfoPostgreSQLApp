@@ -21,8 +21,8 @@ public class DemoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Add some sample values to the Country table
-    cRepository.save(new Country("United States", "North America", 1776, "US", 328200000));
-    	cRepository.save(new Country("Canada", "North America", 1867, "CA", 37742154));
-    	cRepository.save(new Country("Brazil", "South America", 1822, "BR", 213993437));
+    cRepository.save(new Country("United States 🇺🇸 ", "North America", 1776, "US", 328200000));
+    	cRepository.save(new Country("Canada 🇨🇦", "North America", 1867, "CA", 37742154));
+    	cRepository.save(new Country("Brazil 🇧🇷", "South America", 1822, "BR", 213993437));
     }
 }

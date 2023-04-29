@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <Title>Edit book</Title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Include Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+    <div>
+        <h1>Edit book</h1>
+    </div>
+    <div>
+        <!-- Form to edit a country -->
+        <form th:object="${country}" th:action="@{../savecountry}" action="#" method="post">
+            <!-- Hidden field for ID -->
+            <label for="id"></label> 
+            <input th:field="*{id}" type="hidden" id="id" readonly="readonly" class="form-control" />
+
+            <!-- Label and input for name -->
+            <label for="name">name</label> 
+            <input type="text" id="name" th:field="*{name}" />
+
+            <!-- Label and input for continent -->
+            <br> 
+            <label for="continent">continent</label> 
+            <input type="text" id="continent" th:field="*{continent}" />
+
+            <!-- Label and input for Founded Year -->
+            <br> 
+            <label for="FoundedYear">FoundedYear</label> 
+            <input type="number" id="FoundedYear" th:field="*{FoundedYear}" />
+
+            <!-- Label and input for country code -->
+            <br> 
+            <label for="countryCode">countryCode</label> 
+            <input type="text" id="countryCode" th:field="*{countryCode}" />
+
+            <!-- Label and input for population -->
+            <br> 
+            <label for="population">population</label> 
+            <input type="number" step=0.01 id="population" th:field="*{population}" />
+
+            <!-- Submit button -->
+            <input type="submit" value="Save" />
+        </form>
+    </div>
+</body>
+</html>

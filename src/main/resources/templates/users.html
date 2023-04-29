@@ -1,7 +1,41 @@
-<form action="/users" method="post">
-    <label>Name:</label>
-    <input type="text" name="name"><br>
-    <label>Email:</label>
-    <input type="text" name="email"><br>
-    <input type="submit" value="Submit">
-</form>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<title>User List</title>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<!-- Include Bootstrap CSS -->
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="container">
+		<div class="col-md-4">
+			<h1>Users</h1>
+
+			<div class="col-md-4" style="padding:20px 0"></div>
+
+			<!-- Display the list of users in a table -->
+			<table class="table table-striped">
+				<thead>
+					<tr>
+					    <th>Username</th>
+					    <th>Password</th>
+					    <th>Role</th>
+					</tr>  
+				</thead>
+				<tbody>
+					<!-- Iterate over the list of users and display each one -->
+					<tr th:each="user : ${users}">
+						<td th:text="${user.getUsername()}"></td>
+						<td th:text="${user.getRole()}"></td>
+						<td><a th:href="@{/edituser/{id}(id=${user.getId()})}" class="btn btn-success">Edit</a></td>
+						<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deleteuser/{id}(id=${user.getId()})}" class="btn btn-xs btn-danger">Delete</a></td>    		
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<!-- Create a button to add a new user -->
+			<a href="/signup" class="btn btn-success">Add User</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-     
+        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+
     <body>
+        <!-- This div displays an error message if the login credentials are invalid. -->
      <div th:if="${param.error}">
     <p style="color: red">Invalid username and password.</p>
 </div>
 
-		
+	        <!-- This div displays a message if the user has been logged out. -->
         <div th:if="${param.logout}">
             You have been logged out.
         </div>
+        	    <!-- This is the login form with input fields for the username and password. -->
         <form th:action="@{/login}" method="post">
             <div><label> User Name : <input type="text" name="username"/> </label></div>
             <div><label> Password: <input type="password" name="password"/> </label></div>
             <div><input type="submit" value="Sign In"/></div>
         </form>
+            <!-- This link is for the signup page. -->
         <a th:href="@{/signup}">Sign-up</a>
     </body>
 </html>

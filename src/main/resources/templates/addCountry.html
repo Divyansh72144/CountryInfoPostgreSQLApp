@@ -1,0 +1,37 @@
+<!-- This is a Thymeleaf HTML template used to display a form for adding a new country to the database. -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Add new Country</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<div>
+		<h1>Add Country</h1>
+	</div>
+	<div>
+		<!-- The form starts here -->
+		<form th:object="${country}" th:action="@{savecountry}" action="/savecountry" method="post">
+			<!-- Input field for the name of the country -->
+			<label for="name">Name</label> <input type="text" id="name" th:field="*{name}" />
+			<!-- Input field for the continent of the country -->
+			<br>
+			<label for="continent">Continent</label> <input type="text" id="continent" th:field="*{continent}" />
+			<!-- Input field for the year the country was founded -->
+			<br>
+			<label for="FoundedYear">FoundedYear</label> <input type="number" id="FoundedYear" th:field="*{FoundedYear}" />
+			<!-- Input field for the country code of the country -->
+			<br>
+			<label for="countryCode">CountryCode</label> <input type="text" id="countryCode" th:field="*{countryCode}" />
+			<!-- Input field for the population of the country -->
+			<br>
+			<label for="population">Population</label> <input type="number" step=0.01 id="population" th:field="*{population}" />
+			<!-- Submit button to add the country to the database -->
+			<br>
+			<input type="submit" value="Add" />
+		</form>
+		<!-- The form ends here -->
+	</div>
+</body>
+</html>
