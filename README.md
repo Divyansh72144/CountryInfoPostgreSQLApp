@@ -1,7 +1,10 @@
 CountryInfoPostgreSQLApp
-
 Explore, manage, and interact with country information and user accounts using CountryInfoPostgreSQLApp, a Java Spring Boot application powered by PostgreSQL!
 Table of Contents
+
+Repository Description:
+Welcome to the CountryInfoPostgreSQLApp repository! This repository hosts the source code for a robust web application developed using Java Spring Boot, Hibernate, and PostgreSQL. This comprehensive application not only facilitates country information exploration, people searches, and data management but also employs PostgreSQL for secure and efficient data storage. With user authentication, admin privileges, and seamless database integration, this application showcases the power of Spring Security and RESTful APIs.
+
 
     Introduction
     Features
