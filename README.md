@@ -54,4 +54,3 @@ License
 
 This project is licensed under the MIT License.
 
-Feel free to customize the description and sections as needed to accurately portray your application's capabilities.
