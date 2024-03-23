@@ -1,4 +1,5 @@
 CountryInfoPostgreSQLApp
+
 Explore, manage, and interact with country information and user accounts using CountryInfoPostgreSQLApp, a Java Spring Boot application powered by PostgreSQL!
 Table of Contents
 
